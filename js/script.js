@@ -1,4 +1,4 @@
-let list = [];
+let empty_space = [];
 let shapes = ['square','line','l','t']
 let active_elem_position=[];
 let active_elements;
@@ -11,7 +11,7 @@ function launch(){
         box.setAttribute('class','grid');
         box.setAttribute('id',i);
         let n = document.createTextNode(`${parseInt(i/8)} , ${i%8}`);
-        list.push([parseInt(i/8),i%8]);
+        empty_space.push([parseInt(i/8),i%8]);
         box.appendChild(n);
         main.appendChild(box);
     }
@@ -121,10 +121,10 @@ function moveleft(){
     }
 }
 function del_form_list(x,y){
-    for(let i=0;i<list.length;i++){
-        if(list[i][0]==x && list[i][1]==y){
-            console.log("deleting: "+list[i])
-            list.splice(i,1);
+    for(let i=0;i<empty_space.length;i++){
+        if(empty_space[i][0]==x && empty_space[i][1]==y){
+            console.log("deleting: "+empty_space[i])
+            empty_space.splice(i,1);
             return
         }
     }
@@ -133,7 +133,7 @@ let cells = document.querySelectorAll('.cell');
 
 function row_check(){
     for(let r=0;r<10;r++){
-        if(list.filter(value => value[0]==r).length == 0){
+        if(empty_space.filter(value => value[0]==r).length == 0){
             cells = document.querySelectorAll('.cell');
             //cells = cells.filter(value => value.style.display!='none');
             for(let i=0;i<cells.length;i++){
@@ -141,8 +141,8 @@ function row_check(){
                     cells[i].style.display = 'none';
                     let add_r=parseInt(cells[i].style.top.split("e")[0]/4);
                     let add_c=parseInt(cells[i].style.left.split("e")[0]/4);
-                    list.push([add_r,add_c]);
-                    console.log([add_r,add_c]+" empty")
+                    empty_space.push([add_r,add_c]);
+                    console.log([add_r,add_c]+" row_check")
                 }
             }
             row_shift(r);
@@ -159,10 +159,10 @@ function row_shift(r){
                 let new_r =parseInt(cells[i].style.top.split("e")[0]/4)+1;
                 let new_c =parseInt(cells[i].style.left.split("e")[0]/4);
                 cells[i].style.top = `${new_r*4}em`;
-                list.push([new_r-1,new_c]);
-                console.log([new_r-1,new_c]+" empty1")
+                empty_space.push([new_r-1,new_c]);
+                console.log([new_r-1,new_c]+" empty")
                 del_form_list(new_r,new_c);
-                console.log([new_r,new_c]+" filled")
+                console.log([new_r,new_c]+" shifted")
                 console.log(new_r,new_c);
             }
         }
@@ -177,8 +177,8 @@ function movepossible(direction){
             let r = active_elem_position[j][0]+1;
             let c = active_elem_position[j][1];
             let occurance= false;
-            for(let k = 0;k<list.length;k++){
-                if(list[k][0]==r && list[k][1]==c){
+            for(let k = 0;k<empty_space.length;k++){
+                if(empty_space[k][0]==r && empty_space[k][1]==c){
                     occurance=true
                     break
                 }
@@ -200,8 +200,8 @@ function movepossible(direction){
             let r = active_elem_position[j][0];
             let c = active_elem_position[j][1]+1;
             let occurance= false;
-            for(let k = 0;k<list.length;k++){
-                if(list[k][0]==r && list[k][1]==c){
+            for(let k = 0;k<empty_space.length;k++){
+                if(empty_space[k][0]==r && empty_space[k][1]==c){
                     occurance=true
                     break
                 }
@@ -217,8 +217,8 @@ function movepossible(direction){
             let r = active_elem_position[j][0];
             let c = active_elem_position[j][1]-1;
             let occurance= false;
-            for(let k = 0;k<list.length;k++){
-                if(list[k][0]==r && list[k][1]==c){
+            for(let k = 0;k<empty_space.length;k++){
+                if(empty_space[k][0]==r && empty_space[k][1]==c){
                     occurance=true
                     break
                 }

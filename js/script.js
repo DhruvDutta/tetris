@@ -15,6 +15,10 @@ function launch(){
         box.appendChild(n);
         main.appendChild(box);
     }
+    if(window.innerWidth < 512){
+        document.querySelector('body').style.fontSize = `${window.innerWidth/600}em`;
+    }
+    
 }
 launch();
 

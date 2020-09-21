@@ -19,6 +19,10 @@ function launch(){
     }
     if(window.innerWidth < 512){
         document.querySelector('body').style.fontSize = `${window.innerWidth/520}em`;
+        
+    if(window.innerHeight<(window.innerWidth*1.25)  ){
+        document.querySelector('body').style.fontSize = `${window.innerHeight/740}em`;
+    }
     }
     
 }

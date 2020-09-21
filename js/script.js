@@ -1,14 +1,13 @@
-
 let empty_space = [[-2, 0],[-2, 1],[-2, 2],[-2, 3],[-2, 4],[-2, 5],[-2, 6],[-2, 7],[-1, 0],[-1, 1], [-1, 2], [-1, 3], [-1, 5], [-1, 4],[-1, 6], [-1, 7],];
-let shapes = ['square','line','l','t']
+let shapes = ['square','line','l','t','cell']
 let active_elem_position=[];
 let active_elements;
+let score=0;
+document.getElementById('score').innerText = score;
+
 function launch(){
     document.getElementById('js-not-enabled').style.display = 'none';
-    
-    console.log(empty_space);
     for(let i =0;i<80;i++){
-        
         let main = document.getElementById('main');
         let box = document.createElement('span');
         box.setAttribute('class','grid');
@@ -28,34 +27,23 @@ launch();
 
 function create(){
     document.getElementById('start').style.display = 'none';
-    let shape = shapes[Math.floor(Math.random()*3)]/*Math.floor(Math.random()*4)*/
+    let shape = shapes[Math.floor(Math.random()*5)]/*Math.floor(Math.random()*4)*/
     let pos = Math.floor(Math.random()*4);
     let clr=['r','g','b'][Math.floor(Math.random()*3)];
     for(let j = 0;j<4;j++){
+        let cell = document.createElement('span');
+        let r;
+        let c;
         if(shape=='square'){
-            let cell = document.createElement('span');
-            let r = parseInt(j/2)-2;
-            let c = (j%2)+pos;
-            active_elem_position[j]=[r,c];
-            cell.setAttribute('class',`cell active ${clr}`);
-            cell.style.top = `${r*4}em`;
-            cell.style.left = `${c*4}em`;
-            document.getElementById('main').appendChild(cell);
+            r = parseInt(j/2)-2;
+            c = (j%2)+pos;
+            
         }else if(shape=='line'){
-            let cell = document.createElement('span');
             cell.setAttribute('class','cell');
-            let r = -2;
-            let c = pos+j;
-            active_elem_position[j]=[r,c];
-            cell.setAttribute('class',`cell active ${clr}`);
-            cell.style.top = `${r*4}em`;
-            cell.style.left = `${c*4}em`;
-            document.getElementById('main').appendChild(cell);
+            r = -2;
+            c = pos+j;
         }else if(shape=='l'){
-            let cell = document.createElement('span');
             cell.setAttribute('class','cell');
-            let r;
-            let c;
             if(j<3){
                 r=j-2;
                 c=pos;
@@ -63,16 +51,18 @@ function create(){
                 r=j-1-2;
                 c=pos+1;
             }
-            active_elem_position[j]=[r,c];
-            cell.setAttribute('class',`cell active ${clr}`);
-            cell.style.top = `${r*4}em`;
-            cell.style.left = `${c*4}em`;
-            document.getElementById('main').appendChild(cell);
         }else if(shape=='t'){
-            let cell = document.createElement('span');
             cell.setAttribute('class','cell');
-            let r = 1-2;
-            let c = pos+j-1;
+            r = 1-2;
+            c = pos+j-1;
+            if(j==0){
+                r=0;
+                c=pos+1;
+            }
+        }else if(shape=='cell'){
+            cell.setAttribute('class','cell');
+            r = 0;
+            c = pos;
             if(j==0){
                 r=0;
                 c=pos+1;
@@ -82,8 +72,15 @@ function create(){
             cell.style.top = `${r*4}em`;
             cell.style.left = `${c*4}em`;
             document.getElementById('main').appendChild(cell);
+            break
         }
+        active_elem_position[j]=[r,c];
+        cell.setAttribute('class',`cell active ${clr}`);
+        cell.style.top = `${r*4}em`;
+        cell.style.left = `${c*4}em`;
+        document.getElementById('main').appendChild(cell);
     }
+    console.log('shape:',shape)
     movedown();
 }
 
@@ -94,15 +91,17 @@ function movedown(){
     let q =setInterval(
         function(){
             if(movepossible('down')){
-                for(let j = 0;j<4;j++){
+                for(let j = 0;j<active_elements.length;j++){
                     active_elem_position[j][0]+=1;
                     active_elements[j].style.top = `${active_elem_position[j][0]*4}em`;
                     //active_elements[j].innerHTML=`${active_elem_position[j]}`
                 }
             }else{
-                for(let j=0;j<4;j++){
+                for(let j=0;j<active_elements.length;j++){
                     active_elements[j].classList.remove("active");
                 }
+                score+=active_elements.length;
+                document.getElementById('score').innerText = score;
                 active_elements=[];
                 clearInterval(q);
                 setTimeout(create,500);
@@ -121,7 +120,7 @@ function moveright(){
 }
 function moveleft(){
     if(movepossible('left')){
-        for(let j = 0;j<4;j++){
+        for(let j = 0;j<active_elements.length;j++){
             active_elem_position[j][1]-=1;
             active_elements[j].style.left = `${active_elem_position[j][1]*4}em`;
         }
@@ -130,7 +129,6 @@ function moveleft(){
 function del_form_list(x,y){
     for(let i=0;i<empty_space.length;i++){
         if(empty_space[i][0]==x && empty_space[i][1]==y){
-            console.log("deleting: "+empty_space[i])
             empty_space.splice(i,1);
             return
         }
@@ -141,6 +139,8 @@ let cells = document.querySelectorAll('.cell');
 function row_check(){
     for(let r=0;r<10;r++){
         if(empty_space.filter(value => value[0]==r).length == 0){
+            score+=30;
+            document.getElementById('score').innerText = score;
             cells = document.querySelectorAll('.cell');
             //cells = cells.filter(value => value.style.display!='none');
             for(let i=0;i<cells.length;i++){
@@ -149,7 +149,6 @@ function row_check(){
                     let add_r=parseInt(cells[i].style.top.split("e")[0]/4);
                     let add_c=parseInt(cells[i].style.left.split("e")[0]/4);
                     empty_space.push([add_r,add_c]);
-                    console.log([add_r,add_c]+" row_check")
                 }
             }
             row_shift(r);
@@ -167,10 +166,7 @@ function row_shift(r){
                 let new_c =parseInt(cells[i].style.left.split("e")[0]/4);
                 cells[i].style.top = `${new_r*4}em`;
                 empty_space.push([new_r-1,new_c]);
-                console.log([new_r-1,new_c]+" empty")
                 del_form_list(new_r,new_c);
-                console.log([new_r,new_c]+" shifted")
-                console.log(new_r,new_c);
             }
         }
         r-=1;
@@ -180,7 +176,7 @@ function row_shift(r){
 
 function movepossible(direction){
     if(direction == 'down'){
-        for(let j=0;j<4;j++){
+        for(let j=0;j<active_elements.length;j++){
             let r = active_elem_position[j][0]+1;
             let c = active_elem_position[j][1];
             let occurance= false;
@@ -192,7 +188,7 @@ function movepossible(direction){
             }if(occurance){
                 continue
             }else{
-                for(let i=0;i<4;i++){
+                for(let i=0;i<active_elements.length;i++){
                     r= active_elem_position[i][0]+1;
                     c=active_elem_position[i][1];
                     del_form_list(r-1,c);
@@ -203,7 +199,7 @@ function movepossible(direction){
         }
         return true
     }else if(direction=='right'){
-        for(let j=0;j<4;j++){
+        for(let j=0;j<active_elements.length;j++){
             let r = active_elem_position[j][0];
             let c = active_elem_position[j][1]+1;
             let occurance= false;
@@ -220,7 +216,7 @@ function movepossible(direction){
         }
         return true
     }else if(direction=='left'){
-        for(let j=0;j<4;j++){
+        for(let j=0;j<active_elements.length;j++){
             let r = active_elem_position[j][0];
             let c = active_elem_position[j][1]-1;
             let occurance= false;

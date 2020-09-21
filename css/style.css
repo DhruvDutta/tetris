@@ -53,6 +53,18 @@ body{
     cursor: pointer;
     overflow: hidden;
 }
+#scorebox{
+    position: absolute;
+    top: -5%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    font-size: 2em;
+    color: white;
+    background-color: #222;
+    padding: .2em 1em;
+    border-radius: .2em;
+
+}
 .start:hover span{
     left: 100%;
 }

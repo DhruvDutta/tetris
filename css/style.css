@@ -9,7 +9,7 @@ body{
 }
 .canvas{
     position: absolute;
-    bottom:1em;
+    top:4em;
     left: 50%;
     transform: translateX(-50%);
     height: 40em;

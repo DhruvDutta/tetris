@@ -1,14 +1,11 @@
-let empty_space = [];
+
+let empty_space = [[-2, 0],[-2, 1],[-2, 2],[-2, 3],[-2, 4],[-2, 5],[-2, 6],[-2, 7],[-1, 0],[-1, 1], [-1, 2], [-1, 3], [-1, 5], [-1, 4],[-1, 6], [-1, 7],];
 let shapes = ['square','line','l','t']
 let active_elem_position=[];
 let active_elements;
 function launch(){
     document.getElementById('js-not-enabled').style.display = 'none';
-    for(let j=-2;j<0;j++){
-        for(let k=0;k<8;k++){
-            empty_space.push([j,k]);
-        }
-    }
+    
     console.log(empty_space);
     for(let i =0;i<80;i++){
         

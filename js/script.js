@@ -4,6 +4,12 @@ let active_elem_position=[];
 let active_elements;
 function launch(){
     document.getElementById('js-not-enabled').style.display = 'none';
+    for(let j=-2;j<0;j++){
+        for(let k=0;k<8;k++){
+            empty_space.push([j,k]);
+        }
+    }
+    console.log(empty_space);
     for(let i =0;i<80;i++){
         
         let main = document.getElementById('main');
@@ -16,7 +22,7 @@ function launch(){
         main.appendChild(box);
     }
     if(window.innerWidth < 512){
-        document.querySelector('body').style.fontSize = `${window.innerWidth/600}em`;
+        document.querySelector('body').style.fontSize = `${window.innerWidth/520}em`;
     }
     
 }
@@ -31,7 +37,7 @@ function create(){
     for(let j = 0;j<4;j++){
         if(shape=='square'){
             let cell = document.createElement('span');
-            let r = parseInt(j/2);
+            let r = parseInt(j/2)-2;
             let c = (j%2)+pos;
             active_elem_position[j]=[r,c];
             cell.setAttribute('class',`cell active ${clr}`);
@@ -41,7 +47,7 @@ function create(){
         }else if(shape=='line'){
             let cell = document.createElement('span');
             cell.setAttribute('class','cell');
-            let r = 0;
+            let r = -2;
             let c = pos+j;
             active_elem_position[j]=[r,c];
             cell.setAttribute('class',`cell active ${clr}`);
@@ -54,10 +60,10 @@ function create(){
             let r;
             let c;
             if(j<3){
-                r=j;
+                r=j-2;
                 c=pos;
             }else{
-                r=j-1;
+                r=j-1-2;
                 c=pos+1;
             }
             active_elem_position[j]=[r,c];
@@ -68,7 +74,7 @@ function create(){
         }else if(shape=='t'){
             let cell = document.createElement('span');
             cell.setAttribute('class','cell');
-            let r = 1;
+            let r = 1-2;
             let c = pos+j-1;
             if(j==0){
                 r=0;

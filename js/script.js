@@ -12,9 +12,9 @@ function launch(){
         let box = document.createElement('span');
         box.setAttribute('class','grid');
         box.setAttribute('id',i);
-        let n = document.createTextNode(`${parseInt(i/8)} , ${i%8}`);
+        //let n = document.createTextNode(`${parseInt(i/8)} , ${i%8}`);
         empty_space.push([parseInt(i/8),i%8]);
-        box.appendChild(n);
+        //box.appendChild(n);
         main.appendChild(box);
     }
     if(window.innerWidth < 512){
@@ -104,6 +104,13 @@ function movedown(){
                     active_elements[j].classList.remove("active");
                 }
                 score+=active_elements.length;
+                for(let l=0;l<active_elements.length;l++){
+                    if(parseInt(active_elements[l].style.top.split('e')[0]/4) < 1 ){
+                        document.getElementById('gameover').style.display = 'block';
+                        clearInterval(q)
+                        return
+                    }
+                }
                 document.getElementById('score').innerText = score;
                 active_elements=[];
                 clearInterval(q);

@@ -53,15 +53,17 @@ body{
     text-align: center;
 }
 .Instructions{
-    animation: fadeinout 2s linear;
+    animation: fadeinout 2s 1s linear;
     animation-fill-mode: forwards;
+    visibility: hidden;
 }
 .start{
-    animation: fadein 2s 7s linear;
+    animation: fadein 2s 9s linear;
     animation-fill-mode: forwards;
     visibility: hidden;
     cursor: pointer;
     overflow: hidden;
+    font-size: 1.5em;
 }
 #scorebox{
     position: absolute;
@@ -89,7 +91,7 @@ body{
     background-color: aliceblue;
 }
 .mobile-instructions{
-    animation: fadeinout 2s 2s linear;
+    animation: fadeinout 2s 3s linear;
     animation-fill-mode: forwards;
     visibility: hidden;
 }
@@ -106,7 +108,7 @@ body{
     align-items: center;
     color: white;
     visibility: hidden;
-    animation: fadeinout 4s 4s linear;
+    animation: fadeinout 4s 5s linear;
     animation-fill-mode: forwards;
 }
 .right{

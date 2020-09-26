@@ -5,7 +5,8 @@ let active_elements;
 let score=0;
 let shape;
 let color=Math.floor(Math.random()*4);
-active_shape_orientation=0
+active_shape_orientation=0;
+let q;
 document.getElementById('score').innerText = score;
 
 function launch(){
@@ -94,14 +95,14 @@ function create(){
     }
     document.getElementById('main').appendChild(active_cell_group);
     active_shape_orientation=0;
-    movedown();
+    movedown(500);
 }
 
 
 
-function movedown(){
+function movedown(speed){
     active_elements = document.querySelectorAll('.active');
-    let q =setInterval(
+    q =setInterval(
         function(){
             if(movepossible('down')){
                 for(let j = 0;j<active_elements.length;j++){
@@ -129,11 +130,11 @@ function movedown(){
 
             }
         }
-    ,500)
+    ,speed)
 }
 function moveright(){
     if(movepossible('right')){
-        for(let j = 0;j<4;j++){
+        for(let j = 0;j<active_elements.length;j++){
             active_elem_position[j][1]+=1;
             active_elements[j].style.left = `${active_elem_position[j][1]*4}em`;
         }
@@ -146,6 +147,10 @@ function moveleft(){
             active_elements[j].style.left = `${active_elem_position[j][1]*4}em`;
         }
     }
+}
+function drop(){
+    clearInterval(q);
+    movedown(40);
 }
 function rotation_check(arr,n){
     let occur;
@@ -379,6 +384,8 @@ $(function(){ // this will be called when the DOM is ready
             moveright();
         }else if(e==32){
             rotate();
+        }else if(e==13){
+            drop();
         }
     });
   });

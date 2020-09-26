@@ -19,11 +19,14 @@
             <div id="js-not-enabled">
                 Please Enable JavaScript!
             </div>
-            <div class="left" onclick="moveleft()">
+            <div class="left" id="left" onclick="moveleft()">
                 To move Left
             </div>
-            <div class="right" onclick="moveright()">
+            <div class="right" id="right" onclick="moveright()">
                 To move Right
+            </div>
+            <div class="rotate" id="rotate" onclick="rotate()">
+                To Rotate
             </div>
             <div class="Instructions">
                 <h2>Use Arrow keys on PC</h2>
@@ -31,7 +34,7 @@
             <div class="mobile-instructions">
                 <h3>Touch Controls:</h3>
             </div>
-            <div class="start" id="start" onclick="create();">
+            <div class="start" id="start" onclick="create();document.getElementById('left').style.zIndex = 10;document.getElementById('right').style.zIndex = 10;document.getElementById('rotate').style.zIndex = 10;">
                 <h1>Start</h1>
             </div>
             

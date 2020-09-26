@@ -95,7 +95,7 @@ body{
     animation-fill-mode: forwards;
     visibility: hidden;
 }
-.left,.right{
+.left,.right,.rotate{
     position: absolute;
     top: 0;
     left: 0;
@@ -114,7 +114,11 @@ body{
 .right{
     left: 50%;
 }
-
+.rotate{
+    top: 70%;
+    width: 100%;
+    height: 30%;
+}
 .grid{
     display: flex;
     float: left;
@@ -223,3 +227,4 @@ body{
     75%{opacity: 1;visibility: visible;}
     100%{opacity: 0;visibility: visible;}
 }
+

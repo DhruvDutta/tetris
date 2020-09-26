@@ -4,7 +4,7 @@ let active_elem_position=[];
 let active_elements;
 let score=0;
 let shape;
-let color=Math.floor(Math.random()*4);
+let color=Math.floor(Math.random()*3);
 active_shape_orientation=0;
 let q;
 document.getElementById('score').innerText = score;
@@ -35,6 +35,7 @@ launch();
 function create(){
     document.getElementById('start').style.display = 'none';
     shape = shapes[Math.floor(Math.random()*5)]/*Math.floor(Math.random()*4)*/
+    console.log(shape);
     let pos = Math.floor(Math.random()*4);
     let clr=['r','g','b'][color];
     color+=1;
@@ -108,7 +109,6 @@ function movedown(speed){
                 for(let j = 0;j<active_elements.length;j++){
                     active_elem_position[j][0]+=1;
                     active_elements[j].style.top = `${active_elem_position[j][0]*4}em`;
-                    //active_elements[j].innerHTML=`${active_elem_position[j]}`
                 }
             }else{
                 for(let j=0;j<active_elements.length;j++){
@@ -275,24 +275,33 @@ function del_form_list(x,y){
 let cells = document.querySelectorAll('.cell');
 
 function row_check(){
+    let ans;
     for(let r=0;r<10;r++){
+        ans = false;
         if(empty_space.filter(value => value[0]==r).length == 0){
+            ans=true;
             score+=30;
             document.getElementById('score').innerText = score;
             cells = document.querySelectorAll('.cell');
             //cells = cells.filter(value => value.style.display!='none');
             for(let i=0;i<cells.length;i++){
                 if(cells[i].style.top ==`${r*4}em`){
-                    cells[i].style.display = 'none';
+                    cells[i].remove();
                     let add_r=parseInt(cells[i].style.top.split("e")[0]/4);
                     let add_c=parseInt(cells[i].style.left.split("e")[0]/4);
                     empty_space.push([add_r,add_c]);
                 }
             }
             row_shift(r);
-            return
         }
+        
     }
+    if(ans){
+        row_check();
+    }else{
+        return
+    }
+    
 }
 
 function row_shift(r){
@@ -375,88 +384,18 @@ function movepossible(direction){
 
 
 
-$(function(){ // this will be called when the DOM is ready
+$(function(){
     $(document).keyup(function() {
       let e = window.event.keyCode;
         if(e==37){
             moveleft();
         }else if(e==39){
             moveright();
-        }else if(e==32){
-            rotate();
         }else if(e==13){
+            rotate();
+        }else if(e==32){
             drop();
         }
     });
   });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
----------------------------------------------
-use this to access all active elements
-console.log(document.querySelectorAll('.active'))
-
----------------------------------------------
-Use this to eliminate coordinate after moving stops
-if(JSON.stringify(list).includes(JSON.stringify([x,y]))){
-    console.log('yes');
-    console.log(list[x*8+y],x,y)
-}else{
-}
-*/
-
-
-
-/*function create(shape){
-    let sh = document.createElement('span');
-    sh.setAttribute('class',shape);
-    sh.setAttribute('id','active');
-    for(let j = 0;j<4;j++){
-        let box1 = document.createElement('span');
-        box1.setAttribute('class','cell');
-        sh.appendChild(box1);
-    }
-    let top = 0;
-    let left = 0;        
-    document.getElementById("main").appendChild(sh);
-    sh.style.top = `${top}em`;
-    sh.style.left = `${left}em`;
-    movedown()
-}
-
-function movedown(){
-    let sh = document.getElementById("active");
-    let top = 0;
-    let left = 0;
-    let q = setInterval(function(){
-        if(top<8){
-            top+=1;
-            sh.style.top = `${top*4}em`;
-            sh.style.left = `${left*4}em`;
-        }else{
-            clearInterval(q);
-            console.log(top,left,sh.querySelectorAll(".cell")[0])
-        }
-    },500)
-}
-create('square')
-*/

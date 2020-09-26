@@ -3,6 +3,9 @@ let shapes = ['square','line','l','t','cell']
 let active_elem_position=[];
 let active_elements;
 let score=0;
+let shape;
+let color=Math.floor(Math.random()*4);
+active_shape_orientation=0
 document.getElementById('score').innerText = score;
 
 function launch(){
@@ -12,9 +15,9 @@ function launch(){
         let box = document.createElement('span');
         box.setAttribute('class','grid');
         box.setAttribute('id',i);
-        //let n = document.createTextNode(`${parseInt(i/8)} , ${i%8}`);
+        let n = document.createTextNode(`${parseInt(i/8)} , ${i%8}`);
         empty_space.push([parseInt(i/8),i%8]);
-        //box.appendChild(n);
+        box.appendChild(n);
         main.appendChild(box);
     }
     if(window.innerWidth < 512){
@@ -30,10 +33,14 @@ launch();
 
 function create(){
     document.getElementById('start').style.display = 'none';
-    let shape = shapes[Math.floor(Math.random()*5)]/*Math.floor(Math.random()*4)*/
+    shape = shapes[Math.floor(Math.random()*5)]/*Math.floor(Math.random()*4)*/
     let pos = Math.floor(Math.random()*4);
-    let clr=['r','g','b'][Math.floor(Math.random()*3)];
+    let clr=['r','g','b'][color];
+    color+=1;
+    color%=3;
+    let active_cell_group = document.createElement('span');
     for(let j = 0;j<4;j++){
+        active_cell_group.setAttribute('id','active_cell_group');
         let cell = document.createElement('span');
         let r;
         let c;
@@ -59,7 +66,7 @@ function create(){
             r = 1-2;
             c = pos+j-1;
             if(j==0){
-                r=0;
+                r=0-2;
                 c=pos+1;
             }
         }else if(shape=='cell'){
@@ -74,16 +81,19 @@ function create(){
             cell.setAttribute('class',`cell active ${clr}`);
             cell.style.top = `${r*4}em`;
             cell.style.left = `${c*4}em`;
-            document.getElementById('main').appendChild(cell);
+            active_cell_group.appendChild(cell);
+            document.getElementById('main').appendChild(active_cell_group);
+            active_shape_orientation=0;
             break
         }
         active_elem_position[j]=[r,c];
         cell.setAttribute('class',`cell active ${clr}`);
         cell.style.top = `${r*4}em`;
         cell.style.left = `${c*4}em`;
-        document.getElementById('main').appendChild(cell);
+        active_cell_group.appendChild(cell);
     }
-    console.log('shape:',shape)
+    document.getElementById('main').appendChild(active_cell_group);
+    active_shape_orientation=0;
     movedown();
 }
 
@@ -103,6 +113,7 @@ function movedown(){
                 for(let j=0;j<active_elements.length;j++){
                     active_elements[j].classList.remove("active");
                 }
+                document.getElementById('active_cell_group').id ='';
                 score+=active_elements.length;
                 for(let l=0;l<active_elements.length;l++){
                     if(parseInt(active_elements[l].style.top.split('e')[0]/4) < 1 ){
@@ -136,6 +147,118 @@ function moveleft(){
         }
     }
 }
+function rotation_check(arr,n){
+    let occur;
+    for(let i =0;i<arr.length;i++){
+        occur = false
+        if(i!=n){
+            for(let j=0;j<empty_space.length;j++){
+                if(arr[i][0]==empty_space[j][0] && arr[i][1]==empty_space[j][1]){
+                    occur = true;
+                    break
+                }
+            }
+            if(occur){
+                continue
+            }else{
+                return false
+            }
+        }
+    }
+    return true
+}
+
+function rotate(){
+    switch(shape){
+        case 'line':{
+            let r = active_elem_position[1][0];
+            let c = active_elem_position[1][1];
+            let pos;
+            if(active_elem_position[0][0]==active_elem_position[1][0] ){
+                pos = [[r-1,c],[r,c],[r+1,c],[r+2,c]];
+                
+            }else{
+                pos = [[r,c-1],[r,c],[r,c+1],[r,c+2]];
+            }
+            if(rotation_check(pos,1)){
+                for(let i=0;i<active_elements.length;i++){
+                    active_elements[i].style.left = `${pos[i][1]*4}em`;
+                    active_elements[i].style.top = `${pos[i][0]*4}em`;
+                    active_elem_position[i]=pos[i];
+                }
+            }
+            break
+            
+        }
+        case 'l':{
+            let r = active_elem_position[2][0];
+            let c = active_elem_position[2][1];
+            let pos;
+            if(active_shape_orientation==0){
+                pos = [[r,c+2],[r,c+1],[r,c],[r+1,c]];
+            }else if(active_shape_orientation==90){
+                pos = [[r,c-1],[r+1,c],[r,c],[r+2,c]]
+            }else if(active_shape_orientation==180){
+                pos = [[r,c-2],[r,c-1],[r,c],[r-1,c]]
+            }else if(active_shape_orientation==270){
+                pos = [[r-2,c],[r-1,c],[r,c],[r,c+1]]
+            }
+            if(rotation_check(pos,2)){
+                for(let i=0;i<active_elements.length;i++){
+                    active_elements[i].style.left = `${pos[i][1]*4}em`;
+                    active_elements[i].style.top = `${pos[i][0]*4}em`;
+                    active_elem_position[i]=pos[i];
+                }
+                active_shape_orientation+=90;
+                active_shape_orientation%=360;
+            }
+            break
+        }
+        case 't':{
+            let r = active_elem_position[2][0];
+            let c = active_elem_position[2][1];
+            let pos;
+            if(active_shape_orientation==0){
+                pos = active_elem_position;
+                pos[1] = [r+1,c];
+                if(rotation_check(pos,2)){
+                active_elements[1].style.top =  `${(r+1)*4}em`;
+                active_elements[1].style.left =  `${c*4}em`;
+                active_elem_position[1]=pos[1]
+                }
+            }else if(active_shape_orientation==90){
+                pos=active_elem_position;
+                pos[0] = [r,c-1];
+                if(rotation_check(pos,2)){
+                    active_elements[0].style.top =  `${r*4}em`;
+                    active_elements[0].style.left =  `${(c-1)*4}em`;
+                    active_elem_position[0]=pos[0]
+                }
+            }else if(active_shape_orientation==180){
+                pos=active_elem_position;
+                pos[3] = [r-1,c];
+                if(rotation_check(pos,2)){
+                    active_elements[3].style.top =  `${(r-1)*4}em`;
+                    active_elements[3].style.left =  `${c*4}em`;
+                    active_elem_position[3]=pos[3];
+                }
+            }else if(active_shape_orientation==270){
+                pos=active_elem_position;
+                pos[1] = [r,c+1];
+                if(rotation_check(pos,2)){
+                    active_elements[1].style.top =  `${r*4}em`;
+                    active_elements[1].style.left =  `${(c+1)*4}em`;
+                    active_elem_position[1]=pos[1];
+                }
+            }
+            active_shape_orientation+=90;
+            active_shape_orientation%=360;
+            break
+        }
+    }
+
+}
+
 function del_form_list(x,y){
     for(let i=0;i<empty_space.length;i++){
         if(empty_space[i][0]==x && empty_space[i][1]==y){
@@ -254,6 +377,8 @@ $(function(){ // this will be called when the DOM is ready
             moveleft();
         }else if(e==39){
             moveright();
+        }else if(e==32){
+            rotate();
         }
     });
   });

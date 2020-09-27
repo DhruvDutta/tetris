@@ -27,7 +27,36 @@ function launch(){
             document.querySelector('body').style.fontSize = `${window.innerHeight/640}em`;
         }
     }
-    
+    if(localStorage.getItem('numbering')==null){
+        localStorage.setItem('numbering','true');
+        localStorage.setItem('grid','true');
+
+    }else{
+        let numbering = localStorage.getItem('numbering');
+        let grid = localStorage.getItem('grid');
+        if(numbering == 'true') {
+            for(let j=0;j<80;j++){
+                document.getElementById(`${j}`).style.color='#555';
+            }
+        } else {
+            for(let j=0;j<80;j++){
+                document.getElementById(`${j}`).style.color='#222';
+                document.getElementById('numbering').checked = '';
+
+            }
+        }
+        if(grid == 'true') {
+            for(let j=0;j<80;j++){
+                document.getElementById(`${j}`).style.border=' 1px solid #444';
+            }
+
+        } else {
+            for(let j=0;j<80;j++){
+                document.getElementById(`${j}`).style.border=' 1px solid #222';
+            }    
+            document.getElementById('grid').checked = '';
+        }
+    }
 }
 launch();
 
@@ -35,7 +64,6 @@ launch();
 function create(){
     document.getElementById('start').style.display = 'none';
     shape = shapes[Math.floor(Math.random()*5)]/*Math.floor(Math.random()*4)*/
-    console.log(shape);
     let pos = Math.floor(Math.random()*4);
     let clr=['r','g','b'][color];
     color+=1;
@@ -391,7 +419,7 @@ $(function(){
             moveleft();
         }else if(e==39){
             moveright();
-        }else if(e==13){
+        }else if(e==32){
             rotate();
         }else if(e==40){
             drop();
@@ -404,13 +432,13 @@ function info_show(){
     if(!info_showing){
         document.getElementsByClassName('infop')[0].style.display='flex';
         document.getElementsByClassName('infop')[0].style.opacity='1';
-        document.getElementsByClassName('infop')[0].style.zIndex='21';
+        document.getElementsByClassName('infop')[0].style.zIndex=4;
 
         info_showing=true;
     }else{
         document.getElementsByClassName('infop')[0].style.display= 'none';
         document.getElementsByClassName('infop')[0].style.opacity='0';
-        document.getElementsByClassName('infop')[0].style.zIndex='-1';
+        document.getElementsByClassName('infop')[0].style.zIndex=-1;
 
         info_showing=false;
     }
@@ -419,13 +447,16 @@ function options(){
     if(!options_show){
         document.getElementsByClassName('settings-menu')[0].style.display='flex';
         document.getElementsByClassName('settings-menu')[0].style.opacity='1';
-        document.getElementsByClassName('settings-menu')[0].style.zIndex ='21';
-
+        document.getElementsByClassName('settings-menu')[0].style.zIndex = 6;
+        document.getElementsByClassName('close')[0].style.display = 'block';
+        document.getElementsByClassName('close')[0].style.zIndex = 5;
         options_show=true;
     }else{
         document.getElementsByClassName('settings-menu')[0].style.display='none';
         document.getElementsByClassName('settings-menu')[0].style.opacity='0';
-        document.getElementsByClassName('settings-menu')[0].style.zIndex ='1';
+        document.getElementsByClassName('settings-menu')[0].style.zIndex =1;
+        document.getElementsByClassName('close')[0].style.zIndex =0;
+        document.getElementsByClassName('close')[0].style.display = 'none';
         options_show=false;
 
     }
@@ -439,20 +470,25 @@ for(let i = 0;i<checkbox.length;i++){
         if(this.checked) {
             for(let j=0;j<80;j++){
                 document.getElementById(`${j}`).style.border=' 1px solid #444';
+                localStorage.setItem('grid','true');
             }
         } else {
             for(let j=0;j<80;j++){
                 document.getElementById(`${j}`).style.border=' 1px solid #222';
+                localStorage.setItem('grid','false');
+
             }    
         }
     }else if(this.name=='numbering'){
         if(this.checked) {
             for(let j=0;j<80;j++){
                 document.getElementById(`${j}`).style.color='#555';
+                localStorage.setItem('numbering','true');
             }
         } else {
             for(let j=0;j<80;j++){
                 document.getElementById(`${j}`).style.color='#222';
+                localStorage.setItem('numbering','false');
             }    
         }
     }

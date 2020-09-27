@@ -398,7 +398,19 @@ $(function(){
         }
     });
   });
+var info_showing=false;
 var options_show=false;
+function info_show(){
+    if(!info_showing){
+        document.getElementsByClassName('infop')[0].style.display='flex';
+        document.getElementsByClassName('infop')[0].style.opacity='1';
+        info_showing=true;
+    }else{
+        document.getElementsByClassName('infop')[0].style.display= 'none';
+        document.getElementsByClassName('infop')[0].style.opacity='0';
+        info_showing=false;
+    }
+}
 function options(){
     if(!options_show){
         document.getElementsByClassName('settings-menu')[0].style.display='flex';

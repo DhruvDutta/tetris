@@ -6,11 +6,37 @@
     <title>Tetris</title>
     <link rel="stylesheet" href="css/style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    
 </head>
 <body>
     <div class="canvas">
         <div id="scorebox">
             Score: <span id="score"></span>
+        </div>
+        <div class="info">
+            <i class="fas fa-info-circle"></i>
+            
+        </div>
+        <div class="infop">
+            <p>Inspired by his favorite puzzle board game, Pentominos, Pajitnov created an electronic game that let players arrange puzzle pieces in real time as they fell from the top of the playing field. ... Pajitnov called this game “Tetris,” a combination of “tetra” (the Greek word meaning “four”) and “tennis” (his favorite sport).</p>
+        </div>
+        <div class="settings" onclick="options()">
+            <i class="fas fa-ellipsis-v"></i>
+        </div>
+        <div class="settings-menu">
+            
+            <span>
+                <label for="grid">Grid </label>
+                <input type="checkbox" name="grid" id="grid"checked='checked'>
+            </span>
+            <span>
+                <label for="numbering">Numbering </label>
+                <input type="checkbox" name="numbering" id="numbering" checked='checked'>
+            </span>
+            <!--<span>
+                <label for="dark">Dark Mode </label>
+                <input type="checkbox" name="dark" id="dark" checked='checked'>
+            </span>-->
         </div>
         <div class="main" id="main" >
             <div id="gameover">
@@ -19,17 +45,20 @@
             <div id="js-not-enabled">
                 Please Enable JavaScript!
             </div>
-            <div class="left" id="left" onclick="moveleft()" ontouchmove='drop();'>
-                To move Left
+            <div class="left" id="left" onclick="moveleft()">
+                <i class="fa fa-arrow-circle-left"></i>
             </div>
-            <div class="right" id="right" onclick="moveright()" ontouchmove='drop();'>
-                To move Right
+            <div class="right" id="right" onclick="moveright()">
+                <i class="fa fa-arrow-circle-right"></i>
             </div>
-            <div class="rotate" id="rotate" onclick="rotate()" ontouchmove='drop();'>
-                To Rotate
+            <div class="rotate" id="rotate" onclick="rotate()">
+                <i class="fa fa-redo-alt"></i>
+            </div>
+            <div class="drop" id="drop" onclick="drop()">
+                <i class="fa fa-arrow-circle-down"></i>
             </div>
             <div class="Instructions">
-                <h2>Use Arrow keys,<br>Enter & Space <br> on PC  </h2>
+                <h2>Use Arrow keys<br>& Space <br> on PC  </h2>
             </div>
             <div class="mobile-instructions">
                 <h3>Touch Controls:</h3>
@@ -41,5 +70,6 @@
         </div>
     </div>
     <script src="./js/script.js"></script>
+    <script src="https://kit.fontawesome.com/d2b3aa2995.js" crossorigin="anonymous"></script>
 </body>
 </html>

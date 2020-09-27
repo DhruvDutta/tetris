@@ -34,7 +34,7 @@ body{
     color: white;
     display: none;
     animation: fadein .5s linear;
-    z-index: 15;
+    z-index: 10;
 }
 #js-not-enabled{
     display: none;
@@ -82,7 +82,7 @@ body{
     position: absolute;
     top: -5%;
     left: 0%;
-    z-index: 5;
+    z-index: 1;
 }
 .info>i{
     font-size: 3em;
@@ -135,6 +135,13 @@ body{
     transition: .2s;
     flex-direction: column;
     padding: .5em;
+}
+.close{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
 }
 .settings-menu span{
     position: relative;

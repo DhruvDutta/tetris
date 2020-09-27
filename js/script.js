@@ -404,10 +404,14 @@ function info_show(){
     if(!info_showing){
         document.getElementsByClassName('infop')[0].style.display='flex';
         document.getElementsByClassName('infop')[0].style.opacity='1';
+        document.getElementsByClassName('infop')[0].style.zIndex='21';
+
         info_showing=true;
     }else{
         document.getElementsByClassName('infop')[0].style.display= 'none';
         document.getElementsByClassName('infop')[0].style.opacity='0';
+        document.getElementsByClassName('infop')[0].style.zIndex='-1';
+
         info_showing=false;
     }
 }
@@ -415,10 +419,13 @@ function options(){
     if(!options_show){
         document.getElementsByClassName('settings-menu')[0].style.display='flex';
         document.getElementsByClassName('settings-menu')[0].style.opacity='1';
+        document.getElementsByClassName('settings-menu')[0].style.zIndex ='21';
+
         options_show=true;
     }else{
         document.getElementsByClassName('settings-menu')[0].style.display='none';
         document.getElementsByClassName('settings-menu')[0].style.opacity='0';
+        document.getElementsByClassName('settings-menu')[0].style.zIndex ='1';
         options_show=false;
 
     }

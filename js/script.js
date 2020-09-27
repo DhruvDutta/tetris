@@ -393,9 +393,49 @@ $(function(){
             moveright();
         }else if(e==13){
             rotate();
-        }else if(e==32){
+        }else if(e==40){
             drop();
         }
     });
   });
+var options_show=false;
+function options(){
+    if(!options_show){
+        document.getElementsByClassName('settings-menu')[0].style.opacity='1';
 
+        options_show=true;
+    }else{
+        document.getElementsByClassName('settings-menu')[0].style.opacity='0';
+        options_show=false;
+
+    }
+}
+
+var checkbox = document.querySelectorAll("input[type=checkbox]");
+for(let i = 0;i<checkbox.length;i++){
+    
+  checkbox[i].addEventListener( 'change', function() {
+    if(this.name=='grid'){
+        if(this.checked) {
+            for(let j=0;j<80;j++){
+                document.getElementById(`${j}`).style.border=' 1px solid #444';
+            }
+        } else {
+            for(let j=0;j<80;j++){
+                document.getElementById(`${j}`).style.border=' 1px solid #222';
+            }    
+        }
+    }else if(this.name=='numbering'){
+        if(this.checked) {
+            for(let j=0;j<80;j++){
+                document.getElementById(`${j}`).style.color='#555';
+            }
+        } else {
+            for(let j=0;j<80;j++){
+                document.getElementById(`${j}`).style.color='#222';
+            }    
+        }
+    }
+    
+});
+}

@@ -9,6 +9,7 @@
     
 </head>
 <body>
+
     <div class="canvas">
         <div id="scorebox">
             Score: <span id="score"></span>
@@ -20,11 +21,13 @@
         <div class="infop">
             <p>Inspired by his favorite puzzle board game, Pentominos, Pajitnov created an electronic game that let players arrange puzzle pieces in real time as they fell from the top of the playing field. ... Pajitnov called this game “Tetris,” a combination of “tetra” (the Greek word meaning “four”) and “tennis” (his favorite sport).</p>
         </div>
+
         <div class="settings" onclick="options()">
             <i class="fas fa-ellipsis-v"></i>
         </div>
+        <div class="close" onclick="options()"></div>
+
         <div class="settings-menu">
-            
             <span>
                 <label for="grid">Grid </label>
                 <input type="checkbox" name="grid" id="grid"checked='checked'>
@@ -63,7 +66,7 @@
             <div class="mobile-instructions">
                 <h3>Touch Controls:</h3>
             </div>
-            <div class="start" id="start" onclick="create();document.getElementById('left').style.zIndex = 20;document.getElementById('right').style.zIndex = 20;document.getElementById('rotate').style.zIndex = 20;">
+            <div class="start" id="start" onclick="create();document.getElementById('left').style.zIndex = 2;document.getElementById('right').style.zIndex = 2;document.getElementById('rotate').style.zIndex = 2;">
                 <h1>Start</h1>
             </div>
             

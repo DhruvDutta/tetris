@@ -401,10 +401,11 @@ $(function(){
 var options_show=false;
 function options(){
     if(!options_show){
+        document.getElementsByClassName('settings-menu')[0].style.display='flex';
         document.getElementsByClassName('settings-menu')[0].style.opacity='1';
-
         options_show=true;
     }else{
+        document.getElementsByClassName('settings-menu')[0].style.display='none';
         document.getElementsByClassName('settings-menu')[0].style.opacity='0';
         options_show=false;
 

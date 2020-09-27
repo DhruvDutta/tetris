@@ -6,6 +6,7 @@ body{
     position: fixed;
     height: 100vh;
     width: 100vw;
+    background-color: #a7a9be;
 }
 .canvas{
     position: absolute;
@@ -77,6 +78,88 @@ body{
     border-radius: .2em;
 
 }
+.info,.infop{
+    position: absolute;
+    top: -5%;
+    left: 0%;
+    z-index: 5;
+}
+.info>i{
+    font-size: 3em;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+.infop{
+    top: 5%;
+    left: 50%;
+    transform: translate(-50%,0%);
+    width: 90%;
+    opacity: 0;
+
+}
+.info:hover + .infop{
+    opacity: 1;
+    transition: .5s;
+}
+.infop>p{
+    color: #222;
+    padding: .5em;
+    background-color: #a7a9be;
+    border-radius: .5em;
+    font-family: 'Courier New', Courier, monospace;
+}
+.settings{
+    position: absolute;
+    top: -5%;
+    left: 95%;
+    transform: translate(-50%,-50%);
+    font-size: 1.5em;
+    background-color: #0f0e17;
+    color: #a7a9be;
+    border-radius: 50%;
+    height: 2em;
+    width: 2em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+.settings-menu{
+    position: absolute;
+    top: 1%;
+    left: 50%;
+    width: 45%;
+    height: 50%;
+    background-color: white;
+    max-height: 80%;
+    z-index: 16;
+    border-radius: .2em;
+    display: flex;
+    opacity: 0;
+    transition: .2s;
+    flex-direction: column;
+    padding: .5em;
+}
+.settings-menu span{
+    position: relative;
+    width: 100%;
+    display: flex;
+    height: 2em;
+    border-bottom: 1px solid black;
+    align-items: center;
+    font-size: 1.2em;
+    
+}
+.settings-menu span>input{
+    position: absolute;
+    right: 1em;
+
+}
+.settings-menu span>h3{
+    position: absolute;
+    left: .5em;
+}
+
 .start:hover span{
     left: 100%;
 }
@@ -95,11 +178,17 @@ body{
     animation-fill-mode: forwards;
     visibility: hidden;
 }
-.left,.right,.rotate{
+.left>i,.right>i,.rotate>i,.drop>i{
+    font-size: 5em;
+}
+.drop>i{
+    color: aliceblue;
+}
+.left,.right,.rotate,.drop{
     position: absolute;
     top: 0;
     left: 0;
-    height: 70%;
+    height:calc(50% - 1px);
     width: calc(50% - 1px);
     background-color: rgba(0, 0, 0, .5);
     border: 1px solid white;
@@ -115,9 +204,12 @@ body{
     left: 50%;
 }
 .rotate{
-    top: 70%;
-    width: 100%;
-    height: 30%;
+    top: 50%;
+    left: 50%;
+}
+.drop{
+    top: 50%;
+    left: 0%;
 }
 .grid{
     display: flex;

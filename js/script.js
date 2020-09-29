@@ -7,6 +7,8 @@ let shape;
 let color=Math.floor(Math.random()*3);
 active_shape_orientation=0;
 let q;
+let upcoming = [];
+let front=0;
 document.getElementById('score').innerText = score;
 
 function launch(){
@@ -20,6 +22,20 @@ function launch(){
         empty_space.push([parseInt(i/8),i%8]);
         box.appendChild(n);
         main.appendChild(box);
+    }
+    for(let j=0;j<3;j++){
+        upcoming.push(shapes[Math.floor(Math.random()*5)])
+    }
+    for(let i=0;i<upcoming.length;i++){
+        let box = document.getElementById('upcoming');
+        let image = document.createElement('img');
+        image.src = `css/${upcoming[(front+i)%upcoming.length]}.png`;
+        if(upcoming[(front+i)%upcoming.length] == 'line'){
+            image.setAttribute('class','nextl')
+        }else{
+            image.setAttribute('class','next');
+        }
+        box.appendChild(image);
     }
     if(window.innerWidth < 512){
         document.querySelector('body').style.fontSize = `${window.innerWidth/520}em`;
@@ -59,11 +75,20 @@ function launch(){
     }
 }
 launch();
-
+function nextshape(){
+    shape = upcoming[front]
+    upcoming[front]= shapes[Math.floor(Math.random()*5)];
+    front+=1;
+    front%=upcoming.length;
+    document.getElementById('upcoming').innerText= '';
+    for(let i=0;i<upcoming.length;i++){
+        document.getElementById('upcoming').innerText+=`${upcoming[(front+i)%upcoming.length]} -> `;
+    }
+}
 
 function create(){
     document.getElementById('start').style.display = 'none';
-    shape = shapes[Math.floor(Math.random()*5)]/*Math.floor(Math.random()*4)*/
+    nextshape();
     let pos = Math.floor(Math.random()*4);
     let clr=['r','g','b'][color];
     color+=1;

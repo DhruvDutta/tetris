@@ -31,7 +31,7 @@ function launch(){
         let image = document.createElement('img');
         image.src = `css/${upcoming[(front+i)%upcoming.length]}.png`;
         if(upcoming[(front+i)%upcoming.length] == 'line'){
-            image.setAttribute('class','nextl')
+            image.setAttribute('class','nextl');
         }else{
             image.setAttribute('class','next');
         }
@@ -80,9 +80,17 @@ function nextshape(){
     upcoming[front]= shapes[Math.floor(Math.random()*5)];
     front+=1;
     front%=upcoming.length;
-    document.getElementById('upcoming').innerText= '';
+    document.getElementById('upcoming').innerHTML= '';
     for(let i=0;i<upcoming.length;i++){
-        document.getElementById('upcoming').innerText+=`${upcoming[(front+i)%upcoming.length]} -> `;
+        let box = document.getElementById('upcoming');
+        let image = document.createElement('img');
+        image.src = `css/${upcoming[(front+i)%upcoming.length]}.png`;
+        if(upcoming[(front+i)%upcoming.length] == 'line'){
+            image.setAttribute('class','nextl');
+        }else{
+            image.setAttribute('class','next');
+        }
+        box.appendChild(image);
     }
 }
 

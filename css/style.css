@@ -1,6 +1,7 @@
 *{
     margin: 0;
     padding: 0;
+    user-select: none;
 }
 body{
     position: fixed;
@@ -25,6 +26,8 @@ body{
     height: 100%;
     float: left;
     overflow: hidden;
+    border-radius: .5em;
+    box-shadow: 0px 0px 20px black;
 }
 #gameover{
     position: absolute;
@@ -253,7 +256,7 @@ body{
     overflow: hidden;
     margin: .05em;
     border-radius: 10%;
-
+    box-shadow: 0px 0px 5px black;
 }
 
 .r{

@@ -12,6 +12,11 @@ let front=0;
 document.getElementById('score').innerText = score;
 
 function launch(){
+    setTimeout(function(){
+        if(document.getElementById('skip')){
+            document.getElementById('skip').remove();
+        }
+    },9500)
     document.getElementById('js-not-enabled').style.display = 'none';
     for(let i =0;i<80;i++){
         let main = document.getElementById('main');
@@ -75,6 +80,18 @@ function launch(){
     }
 }
 launch();
+
+function skipping(){
+    document.getElementById('left').getAnimations()[0].finish();
+    document.getElementById('right').getAnimations()[0].finish();
+    document.getElementById('rotate').getAnimations()[0].finish();
+    document.getElementById('drop').getAnimations()[0].finish();
+    document.getElementById('Instructions').getAnimations()[0].finish();
+    document.getElementById('mobile-instructions').getAnimations()[0].finish();
+    document.getElementById('start').getAnimations()[0].finish();
+    document.getElementById('skip').remove();
+}
+
 function nextshape(){
     shape = upcoming[front]
     upcoming[front]= shapes[Math.floor(Math.random()*5)];

@@ -62,8 +62,8 @@ function launch(){
         }
     }
     if(localStorage.getItem('numbering')==null){
-        localStorage.setItem('numbering','true');
-        localStorage.setItem('grid','true');
+        localStorage.setItem('numbering','false');
+        localStorage.setItem('grid','false');
 
     }else{
         let numbering = localStorage.getItem('numbering');

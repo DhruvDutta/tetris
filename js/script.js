@@ -1,36 +1,49 @@
-let empty_space = [[-2, 0],[-2, 1],[-2, 2],[-2, 3],[-2, 4],[-2, 5],[-2, 6],[-2, 7],[-1, 0],[-1, 1], [-1, 2], [-1, 3], [-1, 5], [-1, 4],[-1, 6], [-1, 7],];
-let shapes = ['square','line','l','t','cell']
+let empty_space;
+let shapes = ['square','line','l','t','cell'];
 let active_elem_position=[];
 let active_elements;
-let score=0;
+let score;
 let shape;
-let color=Math.floor(Math.random()*3);
-active_shape_orientation=0;
+let color;
+let active_shape_orientation;
 let q;
-let upcoming = [];
-let front=0;
+let upcoming;
+let front;
 document.getElementById('score').innerText = score;
 
 function launch(){
+    empty_space = [[-2, 0],[-2, 1],[-2, 2],[-2, 3],[-2, 4],[-2, 5],[-2, 6],[-2, 7],[-1, 0],[-1, 1], [-1, 2], [-1, 3], [-1, 5], [-1, 4],[-1, 6], [-1, 7],];
+    active_elem_position=[];
+    active_elements=[];
+    score=0;
+    color=Math.floor(Math.random()*3);
+    active_shape_orientation=0;
+    upcoming = [];
+    front=0;
+    document.getElementById('score').innerText = score;
+
     setTimeout(function(){
         if(document.getElementById('skip')){
             document.getElementById('skip').remove();
         }
     },9500)
     document.getElementById('js-not-enabled').style.display = 'none';
-    for(let i =0;i<80;i++){
-        let main = document.getElementById('main');
-        let box = document.createElement('span');
-        box.setAttribute('class','grid');
-        box.setAttribute('id',i);
-        let n = document.createTextNode(`${parseInt(i/8)} , ${i%8}`);
-        empty_space.push([parseInt(i/8),i%8]);
-        box.appendChild(n);
-        main.appendChild(box);
+    if(document.getElementsByClassName('grid').length==0){
+        for(let i =0;i<80;i++){
+            let main = document.getElementById('main');
+            let box = document.createElement('span');
+            box.setAttribute('class','grid');
+            box.setAttribute('id',i);
+            let n = document.createTextNode(`${parseInt(i/8)} , ${i%8}`);
+            empty_space.push([parseInt(i/8),i%8]);
+            box.appendChild(n);
+            main.appendChild(box);
+        }
     }
     for(let j=0;j<3;j++){
         upcoming.push(shapes[Math.floor(Math.random()*5)])
     }
+    document.getElementById('upcoming').innerHTML='';
     for(let i=0;i<upcoming.length;i++){
         let box = document.getElementById('upcoming');
         let image = document.createElement('img');
@@ -92,6 +105,18 @@ function skipping(){
     document.getElementById('skip').remove();
 }
 
+function restart(){
+    location.reload();
+    /*let cell = document.getElementsByClassName('cell');
+    let n = cell.length;
+    for(let i=0;i<n;i++){
+        cell[0].remove();
+    }
+    launch();
+    document.getElementById('gameover').style.display = 'none';
+    setTimeout(create,1000);*/
+}
+
 function nextshape(){
     shape = upcoming[front]
     upcoming[front]= shapes[Math.floor(Math.random()*5)];
@@ -119,9 +144,7 @@ function create(){
     let clr=['r','g','b'][color];
     color+=1;
     color%=3;
-    let active_cell_group = document.createElement('span');
     for(let j = 0;j<4;j++){
-        active_cell_group.setAttribute('id','active_cell_group');
         let cell = document.createElement('span');
         let r;
         let c;
@@ -162,8 +185,7 @@ function create(){
             cell.setAttribute('class',`cell active ${clr}`);
             cell.style.top = `${r*4}em`;
             cell.style.left = `${c*4}em`;
-            active_cell_group.appendChild(cell);
-            document.getElementById('main').appendChild(active_cell_group);
+            document.getElementById('main').appendChild(cell);
             active_shape_orientation=0;
             break
         }
@@ -171,9 +193,9 @@ function create(){
         cell.setAttribute('class',`cell active ${clr}`);
         cell.style.top = `${r*4}em`;
         cell.style.left = `${c*4}em`;
-        active_cell_group.appendChild(cell);
+        document.getElementById('main').appendChild(cell);
+
     }
-    document.getElementById('main').appendChild(active_cell_group);
     active_shape_orientation=0;
     movedown(500);
 }
@@ -193,7 +215,6 @@ function movedown(speed){
                 for(let j=0;j<active_elements.length;j++){
                     active_elements[j].classList.remove("active");
                 }
-                document.getElementById('active_cell_group').id ='';
                 score+=active_elements.length;
                 for(let l=0;l<active_elements.length;l++){
                     if(parseInt(active_elements[l].style.top.split('e')[0]/4) < 1 ){

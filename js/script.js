@@ -95,6 +95,7 @@ function nextshape(){
 }
 
 function create(){
+    document.getElementById('drop').onclick = drop;
     document.getElementById('start').style.display = 'none';
     nextshape();
     let pos = Math.floor(Math.random()*4);
@@ -210,6 +211,7 @@ function moveleft(){
     }
 }
 function drop(){
+    document.getElementById('drop').onclick = '';
     clearInterval(q);
     movedown(40);
 }

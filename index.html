@@ -46,6 +46,7 @@
         <div class="main" id="main" >
             <div id="gameover">
                 <h1>Game Over!</h1>
+                <h2> <u> Play Again </u></h2>
             </div>
             <div id="js-not-enabled">
                 Please Enable JavaScript!
@@ -62,16 +63,18 @@
             <div class="drop" id="drop" onclick="">
                 <i class="fa fa-arrow-circle-down"></i>
             </div>
-            <div class="Instructions">
+            <div class="Instructions" id="Instructions">
                 <h2>Use Arrow keys<br>& Space <br> on PC  </h2>
             </div>
-            <div class="mobile-instructions">
+            <div class="mobile-instructions" id="mobile-instructions">
                 <h3>Touch Controls:</h3>
             </div>
-            <div class="start" id="start" onclick="create();document.getElementById('left').style.zIndex = 2;document.getElementById('right').style.zIndex = 2;document.getElementById('rotate').style.zIndex = 2;document.getElementById('drop').style.zIndex = 2;">
+            <div class="start" id="start" onclick="create();document.getElementById('left').style.zIndex = 2;document.getElementById('right').style.zIndex = 2;document.getElementById('rotate').style.zIndex = 2;document.getElementById('drop').style.zIndex = 2;document.getElementById('upcoming').style.display='flex';">
                 <h1>Start</h1>
             </div>
-            
+            <div id="skip" onclick="skipping()">
+                <h1>Skip!</h1>
+            </div>
         </div>
     </div>
     <script src="./js/script.js"></script>

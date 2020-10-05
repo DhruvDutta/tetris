@@ -38,6 +38,7 @@ body{
     display: none;
     animation: fadein .5s linear;
     z-index: 10;
+    text-align: center;
 }
 #js-not-enabled{
     display: none;
@@ -99,7 +100,7 @@ body{
     border-radius: .2em;
     padding: .2em 1em;
     width: 9em;
-    display: flex;
+    display: none;
     justify-content: center;
 }
 .info,.infop{
@@ -204,6 +205,16 @@ body{
     animation: fadeinout 2s 4s linear;
     animation-fill-mode: forwards;
     visibility: hidden;
+}
+
+#skip{
+    position: absolute;
+    color: white;
+    left: 50%;
+    top: 90%;
+    transform: translate(-50%,-50%);
+    animation: blink 1s infinite ease-in-out;
+    
 }
 .left>i,.right>i,.rotate>i,.drop>i{
     font-size: 5em;
@@ -350,3 +361,14 @@ body{
     100%{opacity: 0;visibility: visible;}
 }
 
+@keyframes blink{
+    0%{
+        opacity: 1;
+    }
+    50%{
+        opacity: .2;
+    }
+    100%{
+        opacity: 1;
+    }
+}

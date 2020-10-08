@@ -64,7 +64,7 @@ function launch(){
     if(localStorage.getItem('numbering')==null){
         localStorage.setItem('numbering','false');
         localStorage.setItem('grid','false');
-        localStorage.setItem('guide','false');
+        localStorage.setItem('guide','true');
 
 
     }else{

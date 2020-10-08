@@ -64,10 +64,14 @@ function launch(){
     if(localStorage.getItem('numbering')==null){
         localStorage.setItem('numbering','false');
         localStorage.setItem('grid','false');
+        localStorage.setItem('guide','false');
+
 
     }else{
         let numbering = localStorage.getItem('numbering');
         let grid = localStorage.getItem('grid');
+        let guide = localStorage.getItem('guide');
+
         if(numbering == 'true') {
             for(let j=0;j<80;j++){
                 document.getElementById(`${j}`).style.color='#555';
@@ -89,6 +93,11 @@ function launch(){
                 document.getElementById(`${j}`).style.border=' 1px solid #222';
             }    
             document.getElementById('grid').checked = '';
+        }
+        if(guide == 'true'){
+            document.getElementById('guidelines').style.display ='flex';
+        }else{
+            document.getElementById('guidelines').style.display ='none';
         }
     }
 }
@@ -563,6 +572,16 @@ for(let i = 0;i<checkbox.length;i++){
                 document.getElementById(`${j}`).style.color='#222';
                 localStorage.setItem('numbering','false');
             }    
+        }
+    }else if(this.name=='guide'){
+        if(this.checked) {
+            document.getElementById('guidelines').style.display = 'flex';
+            localStorage.setItem('guide','true');
+
+        } else {
+            document.getElementById('guidelines').style.display = 'none';
+            localStorage.setItem('guide','false');
+   
         }
     }
     

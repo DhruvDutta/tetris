@@ -206,6 +206,27 @@ body{
     animation-fill-mode: forwards;
     visibility: hidden;
 }
+#guidelines::before{
+    content: '';
+    position: absolute;
+    height: 100%;
+    width: 1px;
+    background-color: white;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    top: 50%;
+}
+#guidelines::after{
+    content: '';
+    position: absolute;
+    height: 1px;
+    width: 100%;
+    background-color: white;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    top: 50%;
+
+}
 
 #skip{
     position: absolute;

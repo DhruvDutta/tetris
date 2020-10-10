@@ -64,7 +64,7 @@ function launch(){
     if(localStorage.getItem('numbering')==null){
         localStorage.setItem('numbering','false');
         localStorage.setItem('grid','false');
-        localStorage.setItem('guide','true');
+        localStorage.setItem('guide','false');
 
 
     }else{
@@ -98,6 +98,8 @@ function launch(){
             document.getElementById('guidelines').style.display ='flex';
         }else{
             document.getElementById('guidelines').style.display ='none';
+            
+            document.getElementById('guide').checked = '';
         }
     }
 }

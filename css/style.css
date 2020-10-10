@@ -245,7 +245,7 @@ body{
 }
 .left,.right,.rotate,.drop{
     position: absolute;
-    top: 0;
+    top: 50%;
     left: 0;
     height:calc(50% - 2px);
     width: calc(50% - 2px);
@@ -263,11 +263,11 @@ body{
     left: 50%;
 }
 .rotate{
-    top: 50%;
+    top: 0;
     left: 50%;
 }
 .drop{
-    top: 50%;
+    top: 0;
     left: 0%;
 }
 .grid{

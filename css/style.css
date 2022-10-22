@@ -27,7 +27,7 @@ body{
     float: left;
     overflow: hidden;
     border-radius: .5em;
-    box-shadow: 0px 0px 20px black;
+    box-shadow: 0px 0px 2px black;
 }
 #gameover{
     position: absolute;
